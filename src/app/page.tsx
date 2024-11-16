@@ -4,6 +4,12 @@ import Footer from "./components/Footer";
 import Image from "next/image";
 import HeroTitle from "./components/HeroTitle";
 
+export const metadata = {
+  title: "CraneoBlog",
+  description:"DEV's also write",
+}
+
+
 interface Post {
   _id: string;
   title: string;
@@ -47,6 +53,7 @@ export default async function Home() {
   const [featuredPost, ...recentPosts] = posts;
 
   return (
+    <>
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <Navbar />
       <HeroTitle />
@@ -112,6 +119,7 @@ export default async function Home() {
         </section>
       </main>
       <Footer />
-    </div>
+      </div>
+      </>
   );
 }

@@ -3,6 +3,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
 
+export const metadata = {
+  title: "my stories",
+  description:"DEV's also write",
+}
+
 interface Post {
   _id: string;
   title: string;
