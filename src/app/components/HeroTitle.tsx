@@ -9,7 +9,7 @@ gsap.registerPlugin(TextPlugin); // Register the TextPlugin
 const HeroTitle = () => {
   const titleRef = useRef<HTMLHeadingElement>(null); // Reference for the <h1>
     const firstPRef = useRef<HTMLParagraphElement>(null); // Reference for the first <p>
-    const secondRef = useRef<HTMLParagraphElement>(null);
+  
 
   useEffect(() => {
     // Animate the <h1> on load
