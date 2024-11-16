@@ -10,3 +10,23 @@ body {
     @apply bg-gray-900 text-gray-100;
   }
   
+/* Typing animation effect */
+@keyframes typewriter {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 12%;
+  }
+}
+
+.hover\:animate-typewriter {
+  animation: typewriter 1.5s steps(15) 1 normal forwards;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Scale Effect - Centered Scaling */
+.group:hover {
+  transform-origin: center;
+}
