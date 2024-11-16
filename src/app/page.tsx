@@ -47,25 +47,25 @@ export default async function Home() {
   const [featuredPost, ...recentPosts] = posts;
 
   return (
-    <div>
-          <Navbar />
-          <HeroTitle />
-          <main className="max-w-5xl mx-auto p-6">
+    <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+      <Navbar />
+      <HeroTitle />
+      <main className="max-w-5xl mx-auto p-6">
         {/* Featured Post Section */}
         {featuredPost && (
           <section className="mb-10">
-            <div className="relative bg-gray-100 rounded-lg overflow-hidden hover:font-bold hover:cursor-pointer">
+            <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden hover:font-bold hover:cursor-pointer">
               {featuredPost.mainImage?.asset?.url && (
                 <Image
                   src={featuredPost.mainImage.asset.url}
                   alt={featuredPost.title}
-                  width={962} // Set the width here
-                  height={977} // Set the height here
+                  width={962}
+                  height={977}
                   className="w-full h-56 object-cover hover:font-bold hover:cursor-pointer"
                 />
               )}
 
-              <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end p-6 text-white">
+              <div className="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-75 flex flex-col justify-end p-6 text-white">
                 <h2 className="text-4xl font-bold mb-4">
                   {featuredPost.title}
                 </h2>
@@ -85,22 +85,24 @@ export default async function Home() {
             {recentPosts.map((post) => (
               <div
                 key={post._id}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:font-bold hover:cursor-pointer"
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:font-bold hover:cursor-pointer"
               >
                 {post.mainImage?.asset?.url && (
                   <Image
                     src={post.mainImage.asset.url}
                     alt={post.title}
-                    width={480} // Example width
-                    height={320} // Example height
-                    className="w-full h-48 object-cover "
+                    width={480}
+                    height={320}
+                    className="w-full h-48 object-cover"
                   />
                 )}
 
                 <div className="p-4">
                   <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-                  <p className="text-gray-600 text-sm">By {post.authorName}</p>
-                  <p className="text-gray-500 text-xs">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    By {post.authorName}
+                  </p>
+                  <p className="text-gray-500 dark:text-gray-500 text-xs">
                     {new Date(post.publishedAt).toDateString()}
                   </p>
                 </div>
