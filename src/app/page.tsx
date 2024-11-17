@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { client } from "./lib/sanity";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -6,9 +7,8 @@ import HeroTitle from "./components/HeroTitle";
 
 export const metadata = {
   title: "CraneoBlog",
-  description:"DEV's also write",
-}
-
+  description: "DEV's also write",
+};
 
 interface Post {
   _id: string;
@@ -25,6 +25,7 @@ interface Post {
   excerpt?: string;
 }
 
+// Fetch posts directly inside the component (async function)
 async function fetchPosts(): Promise<Post[]> {
   const posts = await client.fetch(`
     *[_type == "post"] | order(publishedAt desc){
@@ -42,7 +43,6 @@ async function fetchPosts(): Promise<Post[]> {
       excerpt
     }
   `);
-
   return posts;
 }
 
@@ -53,7 +53,6 @@ export default async function Home() {
   const [featuredPost, ...recentPosts] = posts;
 
   return (
-    <>
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <Navbar />
       <HeroTitle />
@@ -73,9 +72,11 @@ export default async function Home() {
               )}
 
               <div className="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-75 flex flex-col justify-end p-6 text-white">
-                <h2 className="text-4xl font-bold mb-4">
-                  {featuredPost.title}
-                </h2>
+                <Link href={`/post/${featuredPost.slug.current}`}>
+                  <h2 className="text-4xl font-bold mb-4">
+                    {featuredPost.title}
+                  </h2>
+                </Link>
                 <p className="text-lg mb-2">{featuredPost.excerpt}</p>
                 <p className="text-sm">
                   By {featuredPost.authorName} on{" "}
@@ -105,7 +106,9 @@ export default async function Home() {
                 )}
 
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+                  <Link href={`/post/${post.slug.current}`}>
+                    <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+                  </Link>
                   <p className="text-gray-600 dark:text-gray-400 text-sm">
                     By {post.authorName}
                   </p>
@@ -119,7 +122,6 @@ export default async function Home() {
         </section>
       </main>
       <Footer />
-      </div>
-      </>
+    </div>
   );
 }

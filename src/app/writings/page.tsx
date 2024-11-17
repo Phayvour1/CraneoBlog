@@ -2,11 +2,12 @@ import { client } from "../lib/sanity";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
+import Link from "next/link";
 
 export const metadata = {
-  title: "my stories",
-  description:"DEV's also write",
-}
+  title: "My Stories",
+  description: "DEV's also write",
+};
 
 interface Post {
   _id: string;
@@ -47,36 +48,37 @@ async function fetchPosts(): Promise<Post[]> {
 export default async function Home() {
   const posts: Post[] = await fetchPosts();
 
-  // Selecting the first post as the featured post
-  const [ ...recentPosts] = posts;
-
   return (
-    <div>
+    <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <Navbar />
       <main className="max-w-5xl mx-auto p-6">
-
+        {/* Articles Section */}
         <section>
-          <h2 className="text-xl font-light mb-6">Just Recently</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 mt-10 ">
-            {recentPosts.map((post) => (
+          <h2 className="text-3xl font-bold mb-6">Blog Articles</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.map((post) => (
               <div
                 key={post._id}
-                className="hover:font-bold hover:cursor-pointer bg-white rounded-lg shadow-md overflow-hidden"
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:font-bold hover:cursor-pointer"
               >
                 {post.mainImage?.asset?.url && (
                   <Image
                     src={post.mainImage.asset.url}
                     alt={post.title}
-                    width={480} // Example width
-                    height={320} // Example height
+                    width={480}
+                    height={320}
                     className="w-full h-48 object-cover"
                   />
                 )}
 
                 <div className="p-4">
-                  <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-                  <p className="text-gray-600 text-sm">By {post.authorName}</p>
-                  <p className="text-gray-500 text-xs">
+                  <Link href={`/post/${post.slug.current}`}>
+                    <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
+                  </Link>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    By {post.authorName}
+                  </p>
+                  <p className="text-gray-500 dark:text-gray-500 text-xs">
                     {new Date(post.publishedAt).toDateString()}
                   </p>
                 </div>
