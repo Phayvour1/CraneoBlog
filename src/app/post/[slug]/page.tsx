@@ -3,24 +3,22 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import BackButton from "@/app/components/BackButton"; // BackButton Component
-import { PortableText } from "@portabletext/react"; // For rendering Portable Text
+import { PortableText } from "@portabletext/react";
+import BackButton from "@/app/components/BackButton"; // Optional back button
 
 interface Post {
   title: string;
-  slug: { current: string };
   mainImage?: { asset: { url: string } };
   publishedAt: string;
-  body: any; // Portable Text content
+  body: any; // More specific type can be used, e.g., PortableText type
   authorName: string;
-  authorImage?: string;
 }
 
 async function fetchPost(slug: string): Promise<Post | null> {
   const post = await client.fetch(
-    `*[_type == "post" && slug.current == $slug][0]{
+    `
+    *[_type == "post" && slug.current == $slug][0]{
       title,
-      slug,
       mainImage{
         asset->{
           url
@@ -28,9 +26,9 @@ async function fetchPost(slug: string): Promise<Post | null> {
       },
       publishedAt,
       body,
-      "authorName": author->name,
-      "authorImage": author->image.asset->url
-    }`,
+      "authorName": author->name
+    }
+    `,
     { slug }
   );
   return post;
@@ -41,21 +39,19 @@ interface Props {
 }
 
 export default async function PostPage({ params }: Props) {
-  const { slug } = params;  // No need to await params here
+  const { slug } = params;
   const post = await fetchPost(slug);
 
   if (!post) {
-    return notFound();
+    return notFound(); 
   }
 
   return (
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <Navbar />
       <main className="max-w-5xl mx-auto p-6">
-        {/* Back Button */}
         <BackButton />
 
-        {/* Post Header */}
         <header className="mb-6">
           <h1 className="text-4xl font-bold mb-2">{post.title}</h1>
           <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -63,7 +59,6 @@ export default async function PostPage({ params }: Props) {
           </p>
         </header>
 
-        {/* Post Image */}
         {post.mainImage?.asset?.url && (
           <div className="mb-6">
             <Image
@@ -76,8 +71,8 @@ export default async function PostPage({ params }: Props) {
           </div>
         )}
 
-        {/* Post Body */}
         <article className="prose dark:prose-invert">
+          {/* Render the PortableText content */}
           <PortableText value={post.body} />
         </article>
       </main>

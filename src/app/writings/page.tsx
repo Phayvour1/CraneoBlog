@@ -54,35 +54,32 @@ export default async function Home() {
       <main className="max-w-5xl mx-auto p-6">
         {/* Articles Section */}
         <section>
-          <h2 className="text-2xl font-light mb-10 p-6 ">just recently </h2>
+          <h2 className="text-2xl font-light mb-10 p-6">just recently</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post) => (
-              <div
-                key={post._id}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:font-bold hover:cursor-pointer"
-              >
-                {post.mainImage?.asset?.url && (
-                  <Image
-                    src={post.mainImage.asset.url}
-                    alt={post.title}
-                    width={480}
-                    height={320}
-                    className="w-full h-48 object-cover"
-                  />
-                )}
+              <Link href={`/post/${post.slug.current}`} key={post._id}>
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                  {post.mainImage?.asset?.url && (
+                    <Image
+                      src={post.mainImage.asset.url}
+                      alt={post.title}
+                      width={480}
+                      height={320}
+                      className="w-full h-48 object-cover"
+                    />
+                  )}
 
-                <div className="p-4">
-                  <Link href={`/post/${post.slug.current}`}>
+                  <div className="p-4">
                     <h3 className="text-xl font-semibold mb-2">{post.title}</h3>
-                  </Link>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    By {post.authorName}
-                  </p>
-                  <p className="text-gray-500 dark:text-gray-500 text-xs">
-                    {new Date(post.publishedAt).toDateString()}
-                  </p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm">
+                      By {post.authorName}
+                    </p>
+                    <p className="text-gray-500 dark:text-gray-500 text-xs">
+                      {new Date(post.publishedAt).toDateString()}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
