@@ -35,10 +35,11 @@ async function fetchPost(slug: string): Promise<Post | null> {
 }
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-export default async function PostPage({ params }: Props) {
+export default async function PostPage(props: Props) {
+  const params = await props.params;
   const { slug } = params;
   const post = await fetchPost(slug);
 
