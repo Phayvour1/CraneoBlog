@@ -3,14 +3,14 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { PortableText } from "@portabletext/react";
+import { PortableText, PortableTextBlock } from "@portabletext/react";
 import BackButton from "@/app/components/BackButton"; // Optional back button
 
 interface Post {
   title: string;
   mainImage?: { asset: { url: string } };
   publishedAt: string;
-  body: any; // More specific type can be used, e.g., PortableText type
+  body: PortableTextBlock[]; // More specific type can be used, e.g., PortableText type
   authorName: string;
 }
 
