@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 dark:bg-gray-800 p-4 py-8 mt-10">
+    <footer className="bg-gray-100 dark:bg-gray-800 p-4 py-8 mt-10 flex justify-center">
       <div className="max-w-5xl mx-auto text-gray-700 dark:text-gray-300">
         <div className="flex justify-center items-center flex-col gap-6 mb-6">
           {/* About Section */}
@@ -20,7 +20,7 @@ export default function Footer() {
                 placeholder="Enter your email"
                 className="p-2 rounded-l-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-300"
               />
-              <button className="bg-blue-500 dark:bg-blue-600 text-white px-4 rounded-r-lg hover:bg-blue-600 dark:hover:bg-blue-700">
+              <button className="bg-gray-500 dark:bg-gray-600 text-white px-4 rounded-r-lg hover:bg-blue-600 dark:hover:bg-blue-700">
                 Subscribe
               </button>
             </form>
